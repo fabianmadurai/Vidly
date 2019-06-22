@@ -26,5 +26,10 @@ namespace Vidly.Controllers
 
             return View();
         }
+
+        public ActionResult Random()
+        {
+            return RedirectToAction("Index","Home",new {FilterBy="Name", SortBy="Title" });
+        }
     }
 }
