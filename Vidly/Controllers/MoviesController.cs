@@ -35,5 +35,16 @@ namespace Vidly.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult Index()
+        {
+            List<Movie> Movies = new List<Movie>()
+            {
+                new Movie {Name ="Terminator"},
+                new Movie {Name ="Peter Pan" }
+            };
+
+            return View(Movies);
+        }
     }
 }
