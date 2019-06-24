@@ -7,7 +7,7 @@ namespace Vidly.Controllers
         // GET: Content
         public ActionResult Index()
         {
-            return Content("Hello");
+            return Content("Hello There again");
         }
     }
 }
