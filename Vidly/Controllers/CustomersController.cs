@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 
@@ -11,6 +10,24 @@ namespace Vidly.Controllers
 
          
     {
+        //get context to DB
+        private ApplicationDbContext _context;
+
+
+        //instantiate the context within the constructor.
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+
+
+        }
+
+        //dispose of connection
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
 
         List<Customer> CustomersList = new List<Customer>
             {
@@ -21,15 +38,25 @@ namespace Vidly.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            //create List of Customers
+            //get customers from dbcontex
+
+            //Using Eager Loading below to get the related Membership tupes
+            //must include using System.Data.Entity for the include to work.
+            var customers = _context.Customers.Include(c=>c.MembershipType).ToList();
            
 
-            return View(CustomersList);
+            return View(customers);
         }
 
         public ActionResult Details(int id)
         {
-            Customer customer = CustomersList.Find(c => c.Id == id);
+            var customer = _context.Customers
+                .Include(c =>c.MembershipType)
+                .SingleOrDefault(c => c.Id==id);
+
+            var c2 = from c in _context.Customers
+                     where c.Id == id
+                     select c;
 
             return View(customer);
         }
