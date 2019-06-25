@@ -13,7 +13,7 @@
 
     @if (Model.Birthdate != null)
     {
-    <li>Birthdate : @Model.Birthdate</li>
+    <li>Birthdate : @Model.Birthdate.Value.ToString("dd MMMM yyyy")</li>
     }
 </ul>
 

@@ -1,15 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
+
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+
+        //get context to DB
+        private ApplicationDbContext _context;
+
+
+        //instantiate the context within the constructor.
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+
+
+        }
+
+        //dispose of connection
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+
         // GET: Movies
         public ActionResult Random()
         {
@@ -38,13 +59,20 @@ namespace Vidly.Controllers
 
         public ActionResult Index()
         {
-            List<Movie> Movies = new List<Movie>()
-            {
-                new Movie {Name ="Terminator"},
-                new Movie {Name ="Peter Pan" }
-            };
+            //Use Eager Loading , Include, to get the genres.
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
+            
 
-            return View(Movies);
+            return View(movies);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
+                
+            return View(movie);
         }
     }
 }

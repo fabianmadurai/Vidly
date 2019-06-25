@@ -251,9 +251,34 @@
     <Compile Include="Migrations\201906241529035_AddDataAnnotationToBirthdate.Designer.cs">
       <DependentUpon>201906241529035_AddDataAnnotationToBirthdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906251452402_AddGenreModel.cs" />
+    <Compile Include="Migrations\201906251452402_AddGenreModel.Designer.cs">
+      <DependentUpon>201906251452402_AddGenreModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906251459406_AddMovieFields.cs" />
+    <Compile Include="Migrations\201906251459406_AddMovieFields.Designer.cs">
+      <DependentUpon>201906251459406_AddMovieFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906251502466_FixMovieFields.cs" />
+    <Compile Include="Migrations\201906251502466_FixMovieFields.Designer.cs">
+      <DependentUpon>201906251502466_FixMovieFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906251503457_SeedGenres.cs" />
+    <Compile Include="Migrations\201906251503457_SeedGenres.Designer.cs">
+      <DependentUpon>201906251503457_SeedGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906251510136_SeedGenres1.cs" />
+    <Compile Include="Migrations\201906251510136_SeedGenres1.Designer.cs">
+      <DependentUpon>201906251510136_SeedGenres1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906251539435_UpdateGenreDisplayName.cs" />
+    <Compile Include="Migrations\201906251539435_UpdateGenreDisplayName.Designer.cs">
+      <DependentUpon>201906251539435_UpdateGenreDisplayName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -328,6 +353,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,6 +403,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906241529035_AddDataAnnotationToBirthdate.resx">
       <DependentUpon>201906241529035_AddDataAnnotationToBirthdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251452402_AddGenreModel.resx">
+      <DependentUpon>201906251452402_AddGenreModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251459406_AddMovieFields.resx">
+      <DependentUpon>201906251459406_AddMovieFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251502466_FixMovieFields.resx">
+      <DependentUpon>201906251502466_FixMovieFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251503457_SeedGenres.resx">
+      <DependentUpon>201906251503457_SeedGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251510136_SeedGenres1.resx">
+      <DependentUpon>201906251510136_SeedGenres1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906251539435_UpdateGenreDisplayName.resx">
+      <DependentUpon>201906251539435_UpdateGenreDisplayName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

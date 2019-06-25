@@ -54,9 +54,7 @@ namespace Vidly.Controllers
                 .Include(c =>c.MembershipType)
                 .SingleOrDefault(c => c.Id==id);
 
-            var c2 = from c in _context.Customers
-                     where c.Id == id
-                     select c;
+            
 
             return View(customer);
         }
