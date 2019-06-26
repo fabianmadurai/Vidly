@@ -3,7 +3,7 @@ using Vidly.Models;
 
 namespace Vidly.ViewModels
 {
-    public class NewCustomerViewModel
+    public class CustomerFormViewModel
     {
         //IEnumerable instead of List makes our code more loosely coupled.
         //because in the future, if we get memberships with another collection type

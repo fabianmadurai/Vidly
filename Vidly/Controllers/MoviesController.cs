@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -73,6 +75,75 @@ namespace Vidly.Controllers
                 .SingleOrDefault(m => m.Id == id);
                 
             return View(movie);
+        }
+        public ActionResult New()
+
+        {
+            TempData["FormType"] = "New";
+            var viewModel = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList()
+
+            };
+
+            return View("MovieForm",viewModel);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            TempData["FormType"] = "Edit";
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if(movie == null)
+            {
+                return HttpNotFound();
+            }
+            var Genres = _context.Genres.ToList();
+
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = Genres,
+                Movie = movie
+            };
+                        
+
+            return View("MovieForm",viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Movie movie)//Model binding
+        {
+            if(movie.Id == 0)  //means new and not edit
+            {
+                try
+                {
+                    _context.Movies.Add(movie);
+                }
+                catch (DbEntityValidationException e)
+                {
+
+                    Console.WriteLine(e);
+                }
+            }
+
+            else
+            {
+                //get movie from db
+
+                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+
+                movieInDb.Name = movie.Name;
+                movieInDb.GenreId = movie.GenreId;
+                movieInDb.StockNumber = movie.StockNumber;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.DateAdded = movie.DateAdded;
+
+            }
+            
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index");
         }
     }
 }
