@@ -40,8 +40,16 @@
     <script>
         $(document).ready(function () 
         {
+            //apply datatables plugin to the table
+            $('#customers').DataTable();
 
-            $('#customers .js-delete').on("click", function () {
+            //attaching click to the table , but using the js-delete class as a filter .
+            //this js-delete class is only on the delete buttons. 
+            //doing this as oppposed to $('#customers .js-delete) as a selector is an optimisation
+            //we we now wont have a separate click handler for each delete button in memory.
+
+
+            $('#customers').on("click", "js-delete",function () {
 
                 //get a reference to our button immediatly
                 var button = $(this);
