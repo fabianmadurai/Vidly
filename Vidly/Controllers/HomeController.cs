@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Vidly.Controllers
 {
+    [AllowAnonymous] //we have a global filter in filter.config, so we have to use this to allow users to see the home page.
     public class HomeController : Controller
     {
         public ActionResult Index()
