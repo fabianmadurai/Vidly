@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
@@ -30,23 +29,14 @@ namespace Vidly.Controllers
             _context.Dispose();
         }
 
-        List<Customer> CustomersList = new List<Customer>
-            {
-                new Customer {Name = "Jack" , Id = 1 },
-                new Customer {Name = "Mary Jane", Id = 2 }
-            };
 
         // GET: Customers
         public ActionResult Index()
         {
-            //get customers from dbcontex
-
-            //Using Eager Loading below to get the related Membership tupes
-            //must include using System.Data.Entity for the include to work.
-            var customers = _context.Customers.Include(c=>c.MembershipType).ToList();
            
+           //data is sent to the view via an ajax call from the view itself. 
 
-            return View(customers);
+            return View("List");
         }
 
         public ActionResult Details(int id)

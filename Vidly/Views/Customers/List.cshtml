@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Customers</h2>
+
+
+@Html.ActionLink("Add a new Customer", "New", "Customers", null, new { @class = "btn btn-primary" })
+
+<br />
+<br />
+
+<table id="customers" class="table table-bordered table-hover">
+
+    <thead>
+        <tr>
+            <th>Customers</th>
+            <th>Discount Rate</th>
+            <th>Delete</th>
+
+
+        </tr>
+    </thead>
+</table>
+
+<br />
+
+@section scripts
+{
+    <script>
+        $(document).ready(function ()
+        {
+            //apply datatables plugin to the table
+            $('#customers').DataTable({
+
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc:""
+
+                },
+                columns: [
+
+                    {
+                        data: "Name",
+                        render: function (data, type, customer)
+                        {
+                            return "<a href='/customers/edit/" + customer.Id + "'>" + customer.Name + "</a>";
+
+                        }
+                    },
+                    {
+                        data: "Name"
+                    },
+                    {
+                        data: "Id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+                        }
+                    }
+
+                ]
+
+
+
+            });
+
+            //attaching click to the table , but using the js-delete class as a filter .
+            //this js-delete class is only on the delete buttons.
+            //doing this as oppposed to $('#customers .js-delete) as a selector is an optimisation
+            //we we now wont have a separate click handler for each delete button in memory.
+
+
+            $('#customers').on("click", "js-delete",function () {
+
+                //get a reference to our button immediatly
+                var button = $(this);
+
+                //using bootbox javascript plugin.
+                bootbox.confirm("Are you sure you want to delete this customer?", function (result)
+                {
+                    if (result) {
+                        //if you get confirmation, call jQuery ajax function to delete
+                        //the customer
+                        $.ajax(
+                            {
+                                url: "/api/customers/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    //we have a reference to our button from above. var button
+                                    //the reason we defined it there, was because at this point we
+                                    //are in the success callback function, and $(this) can refer to something else
+                                    //hence to be safe, we defined the button outside of this callback.
+                                    //we then use it as a reference point and delete the row which contains this button.
+
+                                    button.parents('tr').remove();
+                                }
+
+                            });
+                    };
+                });
+
+            });
+        });
+
+    </script>
+
+}

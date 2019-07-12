@@ -1,11 +1,12 @@
-﻿@model List<Vidly.Models.Customer>
+﻿
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Customers</h2>
 
-@Html.ActionLink("Add a new Customer","New","Customers",null,new { @class = "btn btn-primary" })
+
+@Html.ActionLink("Add a new Customer", "New", "Customers", null, new { @class = "btn btn-primary" })
 
 <br/>
 <br />
@@ -17,20 +18,10 @@
             <th>Customers</th>
             <th>Discount Rate</th>
             <th>Delete</th>
+           
 
         </tr>
     </thead>
-    @foreach (var c in Model)
-    {
-        <tr>
-          
-
-            <td>@Html.ActionLink(c.Name,"Edit","Customers",new { id = c.Id},null)</td>
-            <td>@c.MembershipType.Name</td>
-            <td><button data-customer-id="@c.Id"class="btn-link js-delete">Delete</button></td>
-
-        </tr>
-    }
 </table>
 
 <br/>
@@ -41,7 +32,38 @@
         $(document).ready(function () 
         {
             //apply datatables plugin to the table
-            $('#customers').DataTable();
+            $('#customers').DataTable({
+
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc:""
+                        
+                },
+                columns: [
+
+                    {
+                        data: "name",
+                        render: function (data, type, customer)
+                        {
+                            return "<a href='/customer/edit/" + customer.id + "'>" + customer.name + "</a>"
+
+                        }
+                    },
+                    {
+                        data:"name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>"
+                        }
+                    }
+
+                ]
+
+
+
+            });
 
             //attaching click to the table , but using the js-delete class as a filter .
             //this js-delete class is only on the delete buttons. 
